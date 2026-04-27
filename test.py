@@ -8,9 +8,7 @@ file.close()
 file = open("device-id.txt", "r")
 DEVICE_ID = file.read()
 file.close()
-print(DEVICE_ID)
-print(DEVICE_ID)
-print(len(DEVICE_ID))
+
 RTDB = "https://group11-plant4all-default-rtdb.europe-west1.firebasedatabase.app/"
 
 def saveToFirebase(temperature, humidity, light):
