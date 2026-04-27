@@ -1,0 +1,13 @@
+import requests
+import json
+
+DB_URL = "https://group11-plant4all-default-rtdb.europe-west1.firebasedatabase.app/"
+KEY = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/WsguwDA6o6kO\neQ5QC13/jHr8afgdHNiwEpVOM20tHPLARFjNbPi/UpERi4tBcHmaE3d3BdU7T4xS\nCkpiERotFSRJ3haaNaVfDG/DxEYBJH/z8OSvRK/WiNE83G/adbnEqWuWRI0+7oQu\nnh36D/nL61nI73Wo8hWl7AKnwxBB5jE/KgpAoIBq5aymJjgsZOi1WWHZPzyjRT5z\nWnt1PQWpwwpIS/BVOr3Sl+AveZaDw12iW6AzP4m/FFibpf7K6WtTjiIhOzZ9O14c\np0cH4yt/Xx/89phSNxywrFhMU5wEwBngNna+smalD4RAcxNNnJcXgPGCkNkUxDYy\nrnXSmpnBAgMBAAECggEAGjv+//HXauKvNc3A+ZZlX7jJz7tTieI/jvwtPhhs2meC\nnHuCVT+gZtKSEv63q9QYx9ftZAMHteb1DPZeNk2z8gRZAkuRe7jpIDvbQtKw6k0v\nwakAIUtgdCAz1409RI0pV94GYwao+rzGoIGLCJKSI7PzjknOLshp0WKnBosGupHw\n6TtYNQpaH1kcR1+HoCEaVONT4UdXZEIGVVhtAHMUkyhJ6GpoksbIoikH3w1bh9rR\nymWl24+irGGzSXmwaN2hhPs0S1G31tnZ5lSyhBbWmJAPdpVqslu3eE+HIhDTfhmK\nT8Gs77qGuQlLKQ9YeVvhOm+QsAPRGr+22NFdfZ1+NQKBgQDlzlFnBzJUFmo1bcal\nRd2nhVMrns+tcBGQdTw0wJ9JujzrbdSBOgQ4OcGat2qRwPpuBwMcVpW6FkHZUqeB\nCo3HXC6QTWNsMk6c6leJ7WozlFocee2DC34Mm++DrDxmrT1WDSYEpnt0lG3JM6yL\nRalH+XVyovNnOQXQdDQzXPgcmwKBgQDVKnbBW5rQvKuvR0791yaC6zKNSEbL/BYs\ndTFiZzrPN8iIidNK1K9uEHSoODrvwZtUmsNwI7yUpvWqarqvBtE+hIBxBLTML3eo\n8diBGwD4Kb14QOFxXlwDWCZLiKSZENJGMfFXW45ucdiD2diUfY4Wx6J/02CrBos1\nffc+svpy0wKBgDCwFqUKbEpOeXAacvS/Kaf9YlKikgN/8+i0Pe47RUQ8lf2XRmee\noBg9fFxIMebxiN1Y1PrjCVPktUzS6zQ2xTUQvbjK/J6GxgsOxz8sssx8yN6xonWa\nMLmBLCysiBuE5rLdlEl18EAR1nTDYvIa7zOVkaGZDpK3DRlOFWUwdEyzAoGBAKL2\nQa90jpiBhGcNhs/8iU6Q7CaiWK1dXL5EIaru7EC6jq4DX+rXSf5EykpIIpZkVpGJ\nd1vllie2tBzCV1GzTogS1/aO+IEY0Mvxh+i7cjRGBLlIMJFw57sOysf4AI2cFITh\nbXWxYuQAWNwD0NVEXzn/CLXcLQzShd4xHLFsNpdNAoGAZlTezpsz3wHkZnHYSeSE\npdeyHeMsxX9Ilc/ciIUFVuWFzJtFLow40rSxmnWDfUdTC9NZv2SKpeZ+WQGOFQ5b\nfxWwuCoOKAGQb9GMqJ4L36T/6qEZjgirrDxU7ekCBaLGNhex1Ab8pLsh+qTlqkKx\nbtBzRzuVgtt+db2SdRdiwnw=\n-----END PRIVATE KEY-----\n"
+
+print("Hello World!")
+
+data = {"firstname": "Fake",
+"lastname": "Person"}
+print(data)
+response = requests.put(DB_URL+"/users/user1.json?auth="+KEY,json=data)
+print(response.json())
