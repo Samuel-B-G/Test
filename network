@@ -1,0 +1,33 @@
+import RPi.GPIO as GPIO
+import time
+import subprocess
+
+GPIO setup
+GREEN = 17
+RED = 27
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(GREEN, GPIO.OUT)
+GPIO.setup(RED, GPIO.OUT)
+
+def is_online():
+    try:
+        # pinga Google DNS
+        subprocess.check_output(["ping", "-c", "1", "8.8.8.8"])
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+try:
+    while True:
+        if is_online():
+            GPIO.output(GREEN, True)
+            GPIO.output(RED, False)
+        else:
+            GPIO.output(GREEN, False)
+            GPIO.output(RED, True)
+
+        time.sleep(5)
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
