@@ -1,0 +1,60 @@
+import time
+import smbus2
+# ... (behåll dina andra imports)
+
+# Adresser
+address = 0x76
+ADDRESS_BH1750 = 0x23
+# Din nya sensoradress
+MIKROE_4131_ADDR = 0x4d 
+
+bus = smbus2.SMBus(1)
+
+def read_moisture_mikroe():
+    """Läser rådata (12-bit) från MIKROE-4131 (MCP3221)"""
+    try:
+        # Läs 2 bytes från MCP3221
+        data = bus.read_i2c_block_data(MIKROE_4131_ADDR, 0x00, 2)
+        
+        # Kombinera MSB och LSB till ett 12-bitars värde
+        # MCP3221 skickar 4 bitar + 8 bitar
+        raw_val = ((data[0] & 0x0F) << 8) | data[1]
+        return raw_val
+    except Exception as e:
+        print(f"Fel vid läsning av MIKROE-4131: {e}")
+        return None
+
+def moisture_to_percent(raw_val):
+    """
+    Omvandlar rådata till procent. 
+    Du behöver kalibrera dessa värden:
+    'dry' = värdet i luften (torrt)
+    'wet' = värdet i ett glas vatten (blött)
+    """
+    dry = 3000  # Exempelvärde för torr jord
+    wet = 1200  # Exempelvärde för mycket blöt jord
+    
+    if raw_val is None:
+        return 0
+        
+    # Beräkna procent (notera att lägre värde = blötare)
+    percent = ((dry - raw_val) / (dry - wet)) * 100
+    return max(0, min(100, percent))
+
+# I din 'while True' loop:
+while True:
+    try:
+        # ... (läs dina andra sensorer som förut)
+
+        # Läs den nya sensorn
+        raw_moist = read_moisture_mikroe()
+        moisture_pct = moisture_to_percent(raw_moist)
+
+        print(f"Fuktighet: {moisture_pct:.2f}% (Råvärde: {raw_moist})")
+        
+        # Spara till Firebase (använd dina befintliga funktioner)
+        # saveToFirebase(temperature_celsius, humidity, light, moisture_pct)
+        
+        time.sleep(10)
+    except KeyboardInterrupt:
+        break
